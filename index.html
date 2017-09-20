@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta  name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>测试</title>
+</head>
+<body>
+
+       <textarea name="" id="count" cols="30" rows="10"></textarea>
+        <p id="wordCountShow"></p>
+</body>
+</html>
+<script src="jquery-3.2.1.min.js"></script>
+<script>
+    $.fn.extend({
+        wordCount: function (maxLength, wordWrapper) {
+            var self = this;
+            $(self).attr("maxlength", maxLength);
+            showWordCount();
+            $(this).on("input propertychange", showWordCount);
+            function showWordCount() {
+                var curLength = $(self).val().length;
+                var leaveCount = maxLength - curLength;
+                if(leaveCount <= 0){
+                    leaveCount = 0;
+                }
+                wordWrapper.text(leaveCount + "/" + maxLength);
+            }
+        }
+    });
+    $("#count").wordCount(64, $("#wordCountShow"));
+</script>
